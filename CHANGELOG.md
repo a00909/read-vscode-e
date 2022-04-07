@@ -5,3 +5,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 - Initial release
+
+## 20220407
+- 加入滾輪翻頁
+- resize調整為永不出現滾動條

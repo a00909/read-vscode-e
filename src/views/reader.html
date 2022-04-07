@@ -38,6 +38,15 @@
             right: 0%;
             text-align: right;
         }
+        .main .cover {
+            position: fixed;
+            left: 0;
+            top: 20px;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0);
+            /*z-index: 5000;*/
+        }
     </style>
 
 </head>
@@ -50,7 +59,8 @@
     <div class="main">
         <div id="area">
 
-        </div>
+        </div>        
+        <div class="cover hover-show"><span class="hover-show-target"></span></div>
         <div class="prev-page hover-show"><span class="hover-show-target">&lt;</span></div>
         <div class="next-page hover-show"><span class="hover-show-target">&gt;</span></div>
     </div>
@@ -110,20 +120,32 @@
         };
     });
 
-
     $('.prev-page').click(function() {
         rendition.prev();
     });
+    
     $('.next-page').click(function() {
         rendition.next();
     });
-    $(document).keydown(function(e) {
-        if (e.keyCode === 65) rendition.prev();
-        if (e.keyCode === 68) rendition.next();
+    
+    document.addEventListener('wheel', function (e) {        
+        if (e.deltaY<0){
+            rendition.prev();
+        } else{
+            rendition.next();
+        }
     });
-
+    
     $('#back').click(function() {
         webviewMessageHelper.emit({ command: 'goto:index' });
+    });
+
+    window.addEventListener('resize', function(){
+        //console.log('resized')
+        rendition.resize(
+            document.documentElement.clientWidth,
+            document.documentElement.clientHeight * .9
+            )
     });
 </script>
 </html>
